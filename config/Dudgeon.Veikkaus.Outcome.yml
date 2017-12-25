@@ -1,0 +1,6 @@
+Dudgeon\Veikkaus\Outcome:
+    properties:
+        home:
+            type: Dudgeon\Veikkaus\Team
+        away:
+            type: Dudgeon\Veikkaus\Team

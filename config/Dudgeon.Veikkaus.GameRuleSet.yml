@@ -1,0 +1,19 @@
+Dudgeon\Veikkaus\GameRuleSet:
+    properties:
+        basePrice:
+            type: integer
+
+        maxPrice:
+            type: integer
+
+        additionalPrizeTierAvailable:
+            type: boolean
+
+        additionalPrizeTierPrice:
+            type: integer
+
+        quickPickAvailable:
+            type: boolean
+
+        oddsType:
+            type: string

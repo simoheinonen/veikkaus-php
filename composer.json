@@ -1,0 +1,13 @@
+{
+    "require": {
+        "guzzlehttp/guzzle": "^6.3",
+        "jms/serializer": "^1.10",
+        "symfony/yaml": "^4.0",
+        "symfony/var-dumper": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dudgeon\\Veikkaus\\": "src/"
+        }
+    }
+}

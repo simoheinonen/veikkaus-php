@@ -1,0 +1,4 @@
+Dudgeon\Veikkaus\Rows:
+    properties:
+        rows:
+            type: array<Dudgeon\Veikkaus\Row>

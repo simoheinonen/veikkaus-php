@@ -1,0 +1,4 @@
+Dudgeon\Veikkaus\Draws:
+    properties:
+        draws:
+            type: array<Dudgeon\Veikkaus\Draw>

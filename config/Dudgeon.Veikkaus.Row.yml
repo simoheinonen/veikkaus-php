@@ -1,0 +1,12 @@
+Dudgeon\Veikkaus\Row:
+    properties:
+        id:
+            type: string
+        tvChannel:
+            type: string
+        eventId:
+            type: string
+        additionalPrizeTier:
+            type: boolean
+        outcome:
+            type: Dudgeon\Veikkaus\Outcome

@@ -1,0 +1,34 @@
+Dudgeon\Veikkaus\Draw:
+    properties:
+        gameName:
+            type: string
+
+        id:
+            type: integer
+
+        name:
+            type: string
+
+        brandName:
+            type: string
+
+        status:
+            type: string
+
+        openTime:
+            type: DateTime
+
+        closeTime:
+            type: DateTime
+
+        drawTime:
+            type: DateTime
+
+        resultsAvailableTime:
+            type: DateTime
+
+        gameRuleSet:
+            type: Dudgeon\Veikkaus\GameRuleSet
+
+        rows:
+            type: array<Dudgeon\Veikkaus\Row>

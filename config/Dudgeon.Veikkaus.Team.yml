@@ -1,0 +1,6 @@
+Dudgeon\Veikkaus\Team:
+    properties:
+        id:
+            type: string
+        name:
+            type: string
