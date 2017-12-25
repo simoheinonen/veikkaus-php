@@ -10,7 +10,7 @@ use JMS\Serializer\SerializerBuilder;
 require_once 'vendor/autoload.php';
 
 $client = new \GuzzleHttp\Client([
-    'base_uri' => 'https://www.veikkaus.fi/',
+    'base_url' => 'https://www.veikkaus.fi/',
     'cookies' => true,
     'headers' => [
         'Content-Type' => 'application/json',
