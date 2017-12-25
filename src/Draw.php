@@ -25,5 +25,10 @@ class Draw
     {
         return $this->rows;
     }
+
+    public function getCloseTime(): \DateTime
+    {
+        return $this->closeTime;
+    }
 }
 
