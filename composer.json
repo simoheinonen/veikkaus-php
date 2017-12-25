@@ -12,7 +12,7 @@
     "require": {
         "guzzlehttp/guzzle": "~5.0",
         "jms/serializer": "^1.10",
-        "symfony/yaml": "^4.0",
+        "symfony/yaml": "~2.6",
         "symfony/var-dumper": "^4.0"
     },
     "autoload": {
