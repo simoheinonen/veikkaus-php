@@ -1,4 +1,14 @@
 {
+    "name": "dudgeon/veikkaus-php",
+    "type": "library",
+    "description": "Veikkaus API client for PHP",
+    "keywords": ["veikkaus"],
+    "authors": [
+        {
+            "name": "Simo Heinonen",
+            "homepage": "https://github.com/simoheinonen"
+        }
+    ],
     "require": {
         "guzzlehttp/guzzle": "~5.0",
         "jms/serializer": "^1.10",
