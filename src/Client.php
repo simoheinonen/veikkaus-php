@@ -22,7 +22,13 @@ class Client
         $options = [];
 
         if ($gameNames) {
-            $options = ['query' => ['game-names' => implode(',', $gameNames)]];
+            $options = [
+                'query' => [
+                    'game-names' => implode(',', $gameNames),
+                    'previous-days' => 1,
+                    'next-days' => 0,
+                ]
+            ];
         }
 
         $res = $this->httpClient->get('api/v1/sport-games/draws', $options);
