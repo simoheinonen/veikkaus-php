@@ -21,6 +21,11 @@ class Draw
         return $this->name;
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function getRows(): array
     {
         return $this->rows;
