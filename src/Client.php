@@ -231,7 +231,7 @@ class Client
         try {
             $this->httpClient->post('api/v1/sport-games/wagers', ['json' => $req]);
 
-            echo implode("\n", $rivis);
+            echo implode("\n", $rivis) . PHP_EOL;
         } catch (ClientException $e) {
             echo 'ERROR' . PHP_EOL;
             echo $e->getResponse()->getBody();
