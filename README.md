@@ -12,10 +12,12 @@ require_once 'vendor/autoload.php';
 $client = new \GuzzleHttp\Client([
     'base_url' => 'https://www.veikkaus.fi/',
     'cookies' => true,
-    'headers' => [
-        'Content-Type' => 'application/json',
-        'Accept' => 'application/json',
-        'X-ESA-API-Key' => 'ROBOT',
+    'defaults' => [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'X-ESA-API-Key' => 'ROBOT',
+        ]
     ]
 ]);
 

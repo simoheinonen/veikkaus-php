@@ -2,6 +2,7 @@
 
 namespace Dudgeon\Veikkaus;
 
+use GuzzleHttp\Exception\ClientException;
 use JMS\Serializer\Serializer;
 
 class Client
@@ -45,5 +46,195 @@ class Client
                 'password' => $password,
             ]
         ]);
+    }
+
+    public function getall(int $drawId)
+    {
+        $i = 0;
+
+        $stuffjee = [];
+
+        do {
+            $stuff = $this->getall2($drawId, $i);
+
+            $stuffjee = array_merge($stuffjee, $stuff);
+
+            $i++;
+        } while (!empty($stuff));
+
+        return $stuffjee;
+    }
+
+    private function getall2(int $drawId, int $page)
+    {
+        $req = [
+            'page' => $page,
+            'selections' => [
+                [
+                    'systemBetType' => 'SYSTEM',
+                    'outcomes' => [
+                        [
+                            'home' => ['selected' => true],
+                            'tie' => ['selected' => true],
+                            'away' => ['selected' => true],
+                        ],
+                        [
+                            'home' => ['selected' => true],
+                            'tie' => ['selected' => true],
+                            'away' => ['selected' => true],
+                        ],
+                        [
+                            'home' => ['selected' => true],
+                            'tie' => ['selected' => true],
+                            'away' => ['selected' => true],
+                        ],
+                        [
+                            'home' => ['selected' => true],
+                            'tie' => ['selected' => true],
+                            'away' => ['selected' => true],
+                        ],
+                        [
+                            'home' => ['selected' => true],
+                            'tie' => ['selected' => true],
+                            'away' => ['selected' => true],
+                        ],
+                        [
+                            'home' => ['selected' => true],
+                            'tie' => ['selected' => true],
+                            'away' => ['selected' => true],
+                        ],
+                        [
+                            'home' => ['selected' => true],
+                            'tie' => ['selected' => true],
+                            'away' => ['selected' => true],
+                        ],
+                        [
+                            'home' => ['selected' => true],
+                            'tie' => ['selected' => true],
+                            'away' => ['selected' => true],
+                        ],
+                        [
+                            'home' => ['selected' => true],
+                            'tie' => ['selected' => true],
+                            'away' => ['selected' => true],
+                        ],/*
+                        [
+                            'home' => ['selected' => true],
+                            'tie' => ['selected' => true],
+                            'away' => ['selected' => true],
+                        ],
+                        [
+                            'home' => ['selected' => true],
+                            'tie' => ['selected' => true],
+                            'away' => ['selected' => true],
+                        ],
+                        [
+                            'home' => ['selected' => true],
+                            'tie' => ['selected' => true],
+                            'away' => ['selected' => true],
+                        ],
+                        [
+                            'home' => ['selected' => true],
+                            'tie' => ['selected' => true],
+                            'away' => ['selected' => true],
+                        ],
+                        */
+                    ]
+                ]
+            ]
+        ];
+
+        $res = $this->httpClient->post('api/v1/sport-games/draws/SPORT/' . $drawId . '/winshares', [
+            'json' => $req
+        ]);
+
+        $json = json_decode($res->getBody(), true);
+
+        if (empty($json['winShares'])) {
+            return [];
+        }
+
+        $resee = [];
+
+        foreach ($json['winShares'] as $winShare) {
+            $jee = implode('', array_map(function ($jee) {
+                $jee = array_keys($jee);
+                $aa = reset($jee);
+
+                switch ($aa) {
+                    case 'home':
+                        return 1;
+                        break;
+                    case 'tie':
+                        return 'X';
+                        break;
+                    case 'away':
+                        return 2;
+                        break;
+                }
+
+                return '?';
+            }, $winShare['selections'][0]['outcomes']));
+            $resee[] = [
+                '_id' => $jee,
+                'numberOfBets' => $winShare['numberOfBets'],
+                'value' => $winShare['value'],
+            ];
+        }
+
+        return $resee;
+    }
+
+    public function play(int $drawId, array $rivis, $stake)
+    {
+        $req = [];
+
+        foreach ($rivis as $i => $rivi) {
+
+            $selections  = [];
+            $outcomes = [];
+
+            foreach (str_split($rivi) as $index => $kirjain) {
+
+                $choi =1;
+
+                if ($kirjain == '1') {
+                    $choi = 'home';
+                }
+                if ($kirjain == 'X') {
+                    $choi = 'tie';
+                }
+                if ($kirjain == '2') {
+                    $choi = 'away';
+                }
+
+                $outcomes[] = [$choi => ['selected' => true]];
+            }
+
+            $selections[] = [
+
+                'systemBetType' => 'SYSTEM',
+                'outcomes' => $outcomes,
+            ];
+            $reqPart = [
+                'type' => 'NORMAL',
+                'drawId' => (string) $drawId,
+                'gameName' => 'SPORT',
+                'stake' => $stake,
+                'price' => $stake *count($selections),
+                'selections' => $selections
+            ];
+
+            $req[] = $reqPart;
+        }
+
+        try {
+            $this->httpClient->post('api/v1/sport-games/wagers', ['json' => $req]);
+
+            echo implode("\n", $rivis);
+        } catch (ClientException $e) {
+            echo 'ERROR' . PHP_EOL;
+            echo $e->getResponse()->getBody();
+        }
     }
 }
