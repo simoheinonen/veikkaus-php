@@ -70,10 +70,6 @@ class Client
 
             $i++;
 
-
-            if ($i > 13000) {
-                break;
-            }
         } while (!empty($stuff));
 
         return $stuffjee;
@@ -193,5 +189,4 @@ class Client
             echo $e->getResponse()->getBody();
         }
     }
-
 }
