@@ -54,8 +54,17 @@ class Client
 
         $stuffjee = [];
 
+        $draws = $this->draws(['SPORT']);
+
+        /** @var Draw $draw */
+        foreach ($draws as $draw) {
+            if ($draw->getId() == $drawId) {
+                $count = count($draw->getRows());
+            }
+        }
+
         do {
-            $stuff = $this->getall2($drawId, $i);
+            $stuff = $this->getall2($drawId, $i, $count);
 
             $stuffjee = array_merge($stuffjee, $stuff);
 
@@ -65,83 +74,25 @@ class Client
         return $stuffjee;
     }
 
-    private function getall2(int $drawId, int $page)
+    private function getall2(int $drawId, int $page, int $count)
     {
+        $outcomes = [];
+
+        for ($i = 0; $i < $count; $i++) {
+            $outcomes[] = [
+                'home' => ['selected' => true],
+                'tie' => ['selected' => true],
+                'away' => ['selected' => true],
+            ];
+        }
+
         $req = [
             'page' => $page,
             'selections' => [
                 [
                     'systemBetType' => 'SYSTEM',
-                    'outcomes' => [
-                        [
-                            'home' => ['selected' => true],
-                            'tie' => ['selected' => true],
-                            'away' => ['selected' => true],
-                        ],
-                        [
-                            'home' => ['selected' => true],
-                            'tie' => ['selected' => true],
-                            'away' => ['selected' => true],
-                        ],
-                        [
-                            'home' => ['selected' => true],
-                            'tie' => ['selected' => true],
-                            'away' => ['selected' => true],
-                        ],
-                        [
-                            'home' => ['selected' => true],
-                            'tie' => ['selected' => true],
-                            'away' => ['selected' => true],
-                        ],
-                        [
-                            'home' => ['selected' => true],
-                            'tie' => ['selected' => true],
-                            'away' => ['selected' => true],
-                        ],
-                        [
-                            'home' => ['selected' => true],
-                            'tie' => ['selected' => true],
-                            'away' => ['selected' => true],
-                        ],
-                        [
-                            'home' => ['selected' => true],
-                            'tie' => ['selected' => true],
-                            'away' => ['selected' => true],
-                        ],
-                        [
-                            'home' => ['selected' => true],
-                            'tie' => ['selected' => true],
-                            'away' => ['selected' => true],
-                        ],
-                        [
-                            'home' => ['selected' => true],
-                            'tie' => ['selected' => true],
-                            'away' => ['selected' => true],
-                        ],/*
-                        [
-                            'home' => ['selected' => true],
-                            'tie' => ['selected' => true],
-                            'away' => ['selected' => true],
-                        ],
-                        [
-                            'home' => ['selected' => true],
-                            'tie' => ['selected' => true],
-                            'away' => ['selected' => true],
-                        ],
-                        [
-                            'home' => ['selected' => true],
-                            'tie' => ['selected' => true],
-                            'away' => ['selected' => true],
-                        ],
-                        [
-                            'home' => ['selected' => true],
-                            'tie' => ['selected' => true],
-                            'away' => ['selected' => true],
-                        ],
-                        */
-                    ]
-                ]
-            ]
+                    'outcomes' => $outcomes,                    ]
+                ],
         ];
 
         $res = $this->httpClient->post('api/v1/sport-games/draws/SPORT/' . $drawId . '/winshares', [
