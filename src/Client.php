@@ -66,12 +66,11 @@ class Client
         do {
             $stuff = $this->getall2($drawId, $i, $count);
 
-            error_log('Baa baa ' . ($i * 100));
+
 
             $stuffjee = array_merge($stuffjee, $stuff);
 
             $i++;
-
         } while (!empty($stuff));
 
         return $stuffjee;
