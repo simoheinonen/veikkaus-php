@@ -37,6 +37,13 @@ class Client
         return $this->serializer->deserialize($res->getBody(), Draws::class, 'json');
     }
 
+    public function balance()
+    {
+        $res = $this->httpClient->get('api/v1/players/self/account');
+
+        return json_decode((string) $res->getBody(), true);
+    }
+
     private function login(string $username, string $password)
     {
         $this->httpClient->post('api/bff/v1/sessions', [
